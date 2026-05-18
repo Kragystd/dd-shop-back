@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kragy.mapper.BrandMapper">
+    <insert id="insertBrand">
+        insert into tb_brand (name, first_char)
+        values (#{name}, #{firstChar})
+    </insert>
+    <update id="updateBrand">
+        update tb_brand
+        set name       = #{name},
+            first_char = #{firstChar}
+        where id = #{id}
+    </update>
+    <delete id="deleteBrandById">
+        delete
+        from tb_brand
+        where id = #{id}
+    </delete>
+    <delete id="deleteBrandByIdBatch">
+        delete
+        from tb_brand
+        where id in
+        <foreach item="id" collection="ids" separator="," open="(" close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+
+    <select id="selectAllBrand" resultType="com.kragy.entity.Brand">
+        select *
+        from tb_brand
+    </select>
+    <select id="selectBrandById" resultType="com.kragy.entity.Brand">
+        select *
+        from tb_brand
+        where id = #{id}
+    </select>
+    <select id="selectBrandByName" resultType="com.kragy.entity.Brand">
+        select *
+        from tb_brand
+        where name like concat('%', #{name}, '%')
+    </select>
+    <select id="selectBrandsByFirstChar" resultType="com.kragy.entity.Brand">
+        select *
+        from tb_brand
+        where first_char = #{firstChar}
+    </select>
+    <select id="selectConditionally" resultType="com.kragy.entity.Brand">
+        select *
+        from tb_brand
+        <where>
+            <if test="name != null">
+                and name like concat('%', #{name}, '%')
+            </if>
+            <if test="firstChar != null">
+                and first_char = #{firstChar}
+            </if>
+        </where>
+    </select>
+
+
+</mapper>
