@@ -6,6 +6,7 @@ import com.kragy.dto.PageDto;
 import com.kragy.entity.Brand;
 import com.kragy.mapper.BrandMapper;
 import com.kragy.service.BrandService;
+import com.kragy.util.PinYinUtil;
 import com.kragy.vo.goodsVo.BrandVo;
 import com.kragy.vo.pagelist.PageList;
 import org.springframework.beans.BeanUtils;
@@ -70,5 +71,11 @@ public class BrandServiceImpl implements BrandService {
             return brandVo;
         }).toList();
         return new PageList<>(page.getTotal(), rows);
+    }
+
+    @Override
+    public String getFirstChar(String characters) {
+        return PinYinUtil.getFirstLetter(characters);
+
     }
 }

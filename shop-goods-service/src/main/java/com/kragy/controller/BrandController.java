@@ -79,4 +79,11 @@ public class BrandController {
     Result<PageList<BrandVo>> getBrandListByPage(@Parameter(description = "分页查询参数") @RequestBody PageDto<Brand> pageDto) {
         return Result.success(brandService.getBrandListByPage(pageDto));
     }
+    
+    @Operation(summary = "获取中文字符串首字母", description = "传入字符串，自动去除特殊符号后返回第一个有效字符的拼音首字母")
+    @GetMapping("/firstchar")
+    Result<String> getFirstChar(@Parameter(description = "中文字符串") @RequestParam("characters") String characters) {
+        return Result.success(brandService.getFirstChar(characters));
+    }
+
 }

@@ -20,4 +20,6 @@ public interface BrandService {
     int deleteBrandById(Integer id);
     int deleteBrandByIdBatch(@Param("ids") List<Integer> ids);
     PageList<BrandVo> getBrandListByPage(PageDto<Brand> pageDto);
+
+    String getFirstChar(String characters);
 }
